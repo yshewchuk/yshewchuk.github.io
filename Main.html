@@ -1,0 +1,390 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <style type="text/css">
+        #loading-overlay {
+            height: 100%;
+            width: 100%;
+            position: fixed;
+            z-index: 100;
+            left: 0px;
+            top: 0px;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="loading-overlay"></canvas>
+    <script>
+        "use strict";
+
+        (function ()
+        {
+            var ArcLength = (function ()
+            {
+                var defaultMaxIterations = 16;
+                var defaultDesiredAccuracy = 0.1;
+                var defaultInitialSegments = 10;
+
+                var calculateArcLength = function (func, start, end, segments)
+                {
+                    var len = 0;
+                    var stepWidth = (end - start) / segments;
+
+                    var currentX = start;
+                    var currentY = func(start);
+                    for (var i = 0; i < segments; i++)
+                    {
+                        var nextX = currentX + stepWidth;
+                        var nextY = func(nextX);
+
+                        len += Math.sqrt(Math.pow(nextX - currentX, 2) + Math.pow(nextY - currentY, 2));
+
+                        currentX = nextX;
+                        currentY = nextY;
+                    }
+
+                    return len;
+                };
+
+                var findArcLength = function (func, start, end, desiredAccuracy, maxIterations)
+                {
+                    maxIterations = maxIterations || defaultMaxIterations;
+                    desiredAccuracy = desiredAccuracy || defaultDesiredAccuracy;
+
+                    var currentSegments = defaultInitialSegments;
+                    var length = calculateArcLength(func, start, end, currentSegments);
+                    var previousLength;
+
+                    var iterations = 0;
+
+                    do
+                    {
+                        previousLength = length;
+                        currentSegments *= 2;
+                        length = calculateArcLength(func, start, end, currentSegments);
+                    } while (Math.abs(length - previousLength) > desiredAccuracy && ++iterations <= maxIterations);
+
+                    return length;
+                };
+
+                var findWidthWithArcLength = function (func, start, desiredLength, direction, desiredAccuracy, maxIterations)
+                {
+                    maxIterations = maxIterations || defaultMaxIterations;
+                    desiredAccuracy = desiredAccuracy || defaultDesiredAccuracy;
+                    direction = direction || 1;
+
+                    var length = 0;
+                    var end = start;
+
+                    var increment = direction * desiredLength;
+
+                    var iterations = 0;
+
+                    do
+                    {
+                        if (length > desiredLength)
+                        {
+                            end -= increment;
+                        }
+                        else
+                        {
+                            end += increment;
+                        }
+                        increment /= 2;
+                        length = findArcLength(func, start, end, desiredAccuracy, maxIterations);
+                    } while (Math.abs(length - desiredLength) > desiredAccuracy && ++iterations <= maxIterations);
+
+                    return Math.abs(end - start);
+                };
+
+                return {
+                    findWidthWithArcLength: findWidthWithArcLength
+                };
+            }());
+
+            var Canvas = (function() 
+            {
+                var drawFunction = function (context, func, startX, endX, segments)
+                {
+                    context.beginPath();
+
+                    var current = startX;
+                    var increment = (endX - startX) / segments;
+
+                    context.moveTo(current, func(current));
+
+                    for (var i = 0; i < segments; i++)
+                    {
+                        current += increment;
+                        context.lineTo(current, func(current));
+                    }
+
+                    context.stroke();
+                };
+
+                var centerAndPixelAlign = function ()
+                {
+                    canvas.width = canvas.offsetWidth;
+                    canvas.height = canvas.offsetHeight;
+
+                    context.translate(canvas.width / 2, canvas.height / 2);
+                    context.scale(1, -1);
+                };
+
+                var copyState = function (from, to)
+                {
+                    for (var p in from)
+                    {
+                        if (typeof from[p] === 'function')
+                        {
+                            to[p] = from[p]();
+                        }
+                        else
+                        {
+                            to[p] = from[p];
+                        }
+                    }
+                };
+
+                return {
+                    drawFunction: drawFunction,
+                    copyState: copyState,
+                    centerAndPixelAlign: centerAndPixelAlign
+                };
+            }());
+
+            var Functions = (function ()
+            {
+                var constant = function (value)
+                {
+                    return function ()
+                    {
+                        return value;
+                    }
+                }
+
+                var gaussianCurve = function (height, mean, width)
+                {
+                    return function (x)
+                    {
+                        return height(x) * Math.exp(-Math.pow(x - mean(x), 2) / Math.pow(width(x) / 2, 2));
+                    };
+                };
+
+                var flattenedGaussianCurve = function (height, mean, width)
+                {
+                    var gauss = gaussianCurve(Functions.constant(1), mean, width);
+
+                    return function (x)
+                    {
+                        return height(x) * Math.pow(gauss(x), Math.pow(Math.abs(x - mean(x)) / width(x), 1.2));
+                    };
+                }
+
+                var sinusoid = function (height, wavelength, position)
+                {
+                    return function (x)
+                    {
+                        return height(x) * Math.cos(2 * Math.PI * (x - position(x)) / wavelength(x));
+                    };
+                };
+
+                var multiply = function (lhs, rhs)
+                {
+                    return function (x)
+                    {
+                        return lhs(x) * rhs(x);
+                    };
+                }
+
+                var divide = function (lhs, rhs)
+                {
+                    return function (x)
+                    {
+                        return lhs(x) / rhs(x);
+                    };
+                };
+
+                var power = function (base, exponent)
+                {
+                    return function (x)
+                    {
+                        return Math.pow(base(x), exponent(x));
+                    };
+                };
+
+                return {
+                    constant: constant,
+                    gaussianCurve: gaussianCurve,
+                    flattenedGaussianCurve: flattenedGaussianCurve,
+                    sinusoid: sinusoid,
+                    multiply: multiply,
+                    divide: divide,
+                    power: power
+                }
+            }());
+
+            var AnimatedRepeater = function (start, lowerBound, upperBound, incrementFunction, timeInterval)
+            {
+                var value = start;
+                var timer = null;
+                var width = upperBound - lowerBound;
+
+                var increment = function ()
+                {
+                    value += incrementFunction(value);
+                    if (value < lowerBound)
+                    {
+                        value += width;
+                    }
+                    if (value > upperBound)
+                    {
+                        value -= width;
+                    }
+                };
+
+                return {
+                    getValue: function () 
+                    {
+                        return value;
+                    },
+                    start: function ()
+                    {
+                        timer = window.setInterval(increment, timeInterval);
+                    },
+                    stop: function ()
+                    {
+                        timer.stop();
+                        timer = null;
+                    }
+                };
+            };
+
+            var canvas = document.getElementById('loading-overlay');
+            var context = canvas.getContext('2d');
+            
+            var trackHeight = 50; // pixels
+            var trackWidth = 500; // pixels
+            var trackSegments = 1000;
+
+            var frameInterval = 20; // ms
+
+            var waveSpeed = -100; // pixels / s
+            var waveWavelength = 60; // pixels
+
+            var pulseSpeed = -60; // pixels / s
+            var pulseWidth = 120; // pixels
+            
+            var wormLength = 150; // pixels
+            var wormSpeed = 200; // pixels / s
+            var wormSegments = 200;
+            var wormOverflow = 25; // pixels
+            var wormColor1 = '#2255cc';
+            var wormColor2 = '#0044aa';
+            var wormRadius1 = 2; // pixels
+            var wormRadius2 = 50; // pixels
+            
+            var trackContextState = {
+                lineWidth: 7,
+                lineCap: 'round',
+                strokeStyle: '#D8D8D8'
+            };
+
+            var wormContextState = {
+                lineWidth: 11,
+                lineCap: 'round',
+                shadowColor: '#555555',
+                shadowBlur: 5,
+                shadowOffsetX: -3,
+                shadowOffsetY: 3
+            };
+
+            var trackStart = -trackWidth / 2;
+            var trackEnd = trackWidth / 2;
+
+            var wormStart = trackStart - wormOverflow;
+            var wormEnd = trackEnd + wormLength + wormOverflow;
+            
+            var perSecondToPerFrame = function (valuePerSecond, frameInterval)
+            {
+                return valuePerSecond * frameInterval / 1000;
+            };
+            
+            var pulsePosition = new AnimatedRepeater(trackEnd + pulseWidth, trackStart - pulseWidth, trackEnd + pulseWidth, Functions.constant(perSecondToPerFrame(pulseSpeed, frameInterval)), frameInterval);
+            var wavePosition = new AnimatedRepeater(0, 0, waveWavelength, Functions.constant(perSecondToPerFrame(waveSpeed, frameInterval)), frameInterval);
+
+            var pulseFunc = Functions.flattenedGaussianCurve(Functions.constant(trackHeight), pulsePosition.getValue, Functions.constant(pulseWidth));
+            var trackFunction = Functions.sinusoid(pulseFunc, Functions.constant(waveWavelength), wavePosition.getValue);
+
+            var wormIncrement = function (current)
+            {
+                return ArcLength.findWidthWithArcLength(trackFunction, current, perSecondToPerFrame(wormSpeed, frameInterval));
+            };
+
+            var wormPosition = new AnimatedRepeater(wormStart, wormStart, wormEnd, wormIncrement, frameInterval);
+            
+            wormContextState.strokeStyle = function ()
+            {
+                var pos = {
+                    x: wormPosition.getValue(),
+                    y: trackFunction(wormPosition.getValue())
+                };
+
+                var gradient = context.createRadialGradient(pos.x, pos.y, wormRadius1, pos.x, pos.y, wormRadius2);
+                gradient.addColorStop(0, wormColor1);
+                gradient.addColorStop(1, wormColor2);
+                return gradient;
+            };
+
+            var drawTrack = function ()
+            {
+                context.save();
+                Canvas.copyState(trackContextState, context);
+
+                Canvas.drawFunction(context, trackFunction, trackStart, trackEnd, trackSegments);
+                context.restore();
+            };
+
+            var drawWorm = function ()
+            {
+                var width = ArcLength.findWidthWithArcLength(trackFunction, wormPosition.getValue(), wormLength, -1);
+
+                var start = Math.max(trackStart, wormPosition.getValue() - width);
+                var end = Math.min(trackEnd, wormPosition.getValue());
+
+                if (trackStart < end && start < trackEnd)
+                {
+                    context.save();
+                    context.translate(-wormContextState.shadowOffsetX || 0, wormContextState.shadowOffsetY || 0);
+
+                    Canvas.copyState(wormContextState, context);
+
+                    Canvas.drawFunction(context, trackFunction, start, end, wormSegments);
+                    context.restore();
+                }
+            }
+
+            var draw = function ()
+            {
+                context.clearRect(0, 0, canvas.width, canvas.height);
+                context.save();
+
+                Canvas.centerAndPixelAlign();
+
+                drawTrack();
+
+                drawWorm();
+
+                context.restore();
+            };
+
+            var animationInterval = window.setInterval(draw, animationInterval);
+            pulsePosition.start();
+            wavePosition.start();
+            wormPosition.start();
+        }());
+    </script>
+</body>
+</html>
