@@ -3,6 +3,123 @@
 <head>
     <title></title>
     <meta charset="utf-8" />
+    <script>
+        // Including $script.js inline here to avoid delaying the load
+        (function (name, definition) {
+            if (typeof module != 'undefined' && module.exports) module.exports = definition()
+            else if (typeof define == 'function' && define.amd) define(definition)
+            else this[name] = definition()
+        })('$script', function () {
+            var doc = document
+              , head = doc.getElementsByTagName('head')[0]
+              , s = 'string'
+              , f = false
+              , push = 'push'
+              , readyState = 'readyState'
+              , onreadystatechange = 'onreadystatechange'
+              , list = {}
+              , ids = {}
+              , delay = {}
+              , scripts = {}
+              , scriptpath
+              , urlArgs
+
+            function every(ar, fn) {
+                for (var i = 0, j = ar.length; i < j; ++i) if (!fn(ar[i])) return f
+                return 1
+            }
+            function each(ar, fn) {
+                every(ar, function (el) {
+                    return !fn(el)
+                })
+            }
+
+            function $script(paths, idOrDone, optDone) {
+                paths = paths[push] ? paths : [paths]
+                var idOrDoneIsDone = idOrDone && idOrDone.call
+                  , done = idOrDoneIsDone ? idOrDone : optDone
+                  , id = idOrDoneIsDone ? paths.join('') : idOrDone
+                  , queue = paths.length
+                function loopFn(item) {
+                    return item.call ? item() : list[item]
+                }
+                function callback() {
+                    if (!--queue) {
+                        list[id] = 1
+                        done && done()
+                        for (var dset in delay) {
+                            every(dset.split('|'), loopFn) && !each(delay[dset], loopFn) && (delay[dset] = [])
+                        }
+                    }
+                }
+                setTimeout(function () {
+                    each(paths, function loading(path, force) {
+                        if (path === null) return callback()
+                        path = !force && path.indexOf('.js') === -1 && !/^https?:\/\//.test(path) && scriptpath ? scriptpath + path + '.js' : path
+                        if (scripts[path]) {
+                            if (id) ids[id] = 1
+                            return (scripts[path] == 2) ? callback() : setTimeout(function () { loading(path, true) }, 0)
+                        }
+
+                        scripts[path] = 1
+                        if (id) ids[id] = 1
+                        create(path, callback)
+                    })
+                }, 0)
+                return $script
+            }
+
+            function create(path, fn) {
+                var el = doc.createElement('script'), loaded
+                el.onload = el.onerror = el[onreadystatechange] = function () {
+                    if ((el[readyState] && !(/^c|loade/.test(el[readyState]))) || loaded) return;
+                    el.onload = el[onreadystatechange] = null
+                    loaded = 1
+                    scripts[path] = 2
+                    fn()
+                }
+                el.async = 1
+                el.src = urlArgs ? path + (path.indexOf('?') === -1 ? '?' : '&') + urlArgs : path;
+                head.insertBefore(el, head.lastChild)
+            }
+
+            $script.get = create
+
+            $script.order = function (scripts, id, done) {
+                (function callback(s) {
+                    s = scripts.shift()
+                    !scripts.length ? $script(s, id, done) : $script(s, callback)
+                }())
+            }
+
+            $script.path = function (p) {
+                scriptpath = p
+            }
+            $script.urlArgs = function (str) {
+                urlArgs = str;
+            }
+            $script.ready = function (deps, ready, req) {
+                deps = deps[push] ? deps : [deps]
+                var missing = [];
+                !each(deps, function (dep) {
+                    list[dep] || missing[push](dep);
+                }) && every(deps, function (dep) { return list[dep] }) ?
+                  ready() : !function (key) {
+                      delay[key] = delay[key] || []
+                      delay[key][push](ready)
+                      req && req(missing)
+                  }(deps.join('|'))
+                return $script
+            }
+
+            $script.done = function (idOrDone) {
+                $script([null], idOrDone)
+            }
+
+            return $script
+        });
+    </script>
+
     <style type="text/css">
         #loading-overlay {
             height: 100%;
@@ -137,14 +254,8 @@
                 {
                     for (var p in from)
                     {
-                        if (typeof from[p] === 'function')
-                        {
-                            to[p] = from[p]();
-                        }
-                        else
-                        {
-                            to[p] = from[p];
-                        }
+                        var val = from[p];
+                        to[p] = (typeof val === 'function') ? val() : val;
                     }
                 };
 
@@ -157,29 +268,26 @@
 
             var Functions = (function ()
             {
-                var constant = function (value)
-                {
-                    return function ()
-                    {
-                        return value;
-                    }
-                }
-
                 var gaussianCurve = function (height, mean, width)
                 {
                     return function (x)
                     {
-                        return height(x) * Math.exp(-Math.pow(x - mean(x), 2) / Math.pow(width(x) / 2, 2));
+                        var h = (typeof height === 'function') ? height(x) : height;
+                        var m = (typeof mean === 'function') ? mean(x) : mean;
+                        var w = (typeof width === 'function') ? width(x) : width;
+                        return h * Math.exp(-Math.pow(x - m, 2) / Math.pow(w / 2, 2));
                     };
                 };
 
-                var flattenedGaussianCurve = function (height, mean, width)
+                var flattenedGaussianCurve = function (height, mean, width, flatteningFactor)
                 {
-                    var gauss = gaussianCurve(Functions.constant(1), mean, width);
-
                     return function (x)
                     {
-                        return height(x) * Math.pow(gauss(x), Math.pow(Math.abs(x - mean(x)) / width(x), 1.2));
+                        var h = (typeof height === 'function') ? height(x) : height;
+                        var m = (typeof mean === 'function') ? mean(x) : mean;
+                        var w = (typeof width === 'function') ? width(x) : width;
+                        var f = (typeof flatteningFactor === 'function') ? flatteningFactor(x) : flatteningFactor;
+                        return h * Math.exp(-Math.pow(Math.abs(x - m), 2 * f) / Math.pow(w / 2, 2 * f));
                     };
                 }
 
@@ -187,59 +295,34 @@
                 {
                     return function (x)
                     {
-                        return height(x) * Math.cos(2 * Math.PI * (x - position(x)) / wavelength(x));
-                    };
-                };
-
-                var multiply = function (lhs, rhs)
-                {
-                    return function (x)
-                    {
-                        return lhs(x) * rhs(x);
-                    };
-                }
-
-                var divide = function (lhs, rhs)
-                {
-                    return function (x)
-                    {
-                        return lhs(x) / rhs(x);
-                    };
-                };
-
-                var power = function (base, exponent)
-                {
-                    return function (x)
-                    {
-                        return Math.pow(base(x), exponent(x));
+                        var h = (typeof height === 'function') ? height(x) : height;
+                        var l = (typeof wavelength === 'function') ? wavelength(x) : wavelength;
+                        var p = (typeof position === 'function') ? position(x) : position;
+                        return h * Math.cos(2 * Math.PI * (x - p) / l);
                     };
                 };
 
                 return {
-                    constant: constant,
                     gaussianCurve: gaussianCurve,
                     flattenedGaussianCurve: flattenedGaussianCurve,
-                    sinusoid: sinusoid,
-                    multiply: multiply,
-                    divide: divide,
-                    power: power
+                    sinusoid: sinusoid
                 }
             }());
 
-            var AnimatedRepeater = function (start, lowerBound, upperBound, incrementFunction, timeInterval)
+            var AnimatedRepeater = function (start, lowerBound, upperBound, increment, timeInterval)
             {
                 var value = start;
                 var timer = null;
                 var width = upperBound - lowerBound;
 
-                var increment = function ()
+                var tick = function ()
                 {
-                    value += incrementFunction(value);
+                    value += (typeof increment === 'function') ? increment(value) : increment;
                     if (value < lowerBound)
                     {
                         value += width;
                     }
-                    if (value > upperBound)
+                    if (value >= upperBound)
                     {
                         value -= width;
                     }
@@ -252,7 +335,7 @@
                     },
                     start: function ()
                     {
-                        timer = window.setInterval(increment, timeInterval);
+                        timer = window.setInterval(tick, timeInterval);
                     },
                     stop: function ()
                     {
@@ -265,16 +348,18 @@
             var canvas = document.getElementById('loading-overlay');
             var context = canvas.getContext('2d');
             
-            var trackHeight = 50; // pixels
-            var trackWidth = 500; // pixels
-            var trackSegments = 1000;
+            var scale = 1;
 
-            var frameInterval = 20; // ms
+            var trackHeight = 60; // pixels
+            var trackWidth = 800; // pixels
+            var trackSegments = 500;
 
-            var waveSpeed = -100; // pixels / s
-            var waveWavelength = 60; // pixels
+            var frameInterval = 30; // ms
 
-            var pulseSpeed = -60; // pixels / s
+            var waveSpeed = -110; // pixels / s
+            var waveWavelength = 54; // pixels
+
+            var pulseSpeed = -85; // pixels / s
             var pulseWidth = 120; // pixels
             
             var wormLength = 150; // pixels
@@ -286,6 +371,18 @@
             var wormRadius1 = 2; // pixels
             var wormRadius2 = 50; // pixels
             
+            var textValues = ['Loading .', 'Loading ..', 'Loading ...'];
+
+            var textContextState = {
+                textAlign: 'left',
+                font: 'bold 30px "Lucida Sans Unicode", "Lucida Grande", sans-serif',
+                fillStyle: 'black',
+                shadowBlur: function () { return 2 * scale; },
+                shadowColor: '#999999',
+                shadowOffsetX: function () { return scale; },
+                shadowOffsetY: function () { return scale; }
+            };
+
             var trackContextState = {
                 lineWidth: 7,
                 lineCap: 'round',
@@ -296,9 +393,9 @@
                 lineWidth: 11,
                 lineCap: 'round',
                 shadowColor: '#555555',
-                shadowBlur: 5,
-                shadowOffsetX: -3,
-                shadowOffsetY: 3
+                shadowBlur: function () { return 5 * scale; },
+                shadowOffsetX: function () { return -3 * scale; },
+                shadowOffsetY: function () { return 3 * scale; }
             };
 
             var trackStart = -trackWidth / 2;
@@ -312,11 +409,12 @@
                 return valuePerSecond * frameInterval / 1000;
             };
             
-            var pulsePosition = new AnimatedRepeater(trackEnd + pulseWidth, trackStart - pulseWidth, trackEnd + pulseWidth, Functions.constant(perSecondToPerFrame(pulseSpeed, frameInterval)), frameInterval);
-            var wavePosition = new AnimatedRepeater(0, 0, waveWavelength, Functions.constant(perSecondToPerFrame(waveSpeed, frameInterval)), frameInterval);
+            var pulsePosition = new AnimatedRepeater(trackEnd + pulseWidth, trackStart - pulseWidth, trackEnd + pulseWidth, perSecondToPerFrame(pulseSpeed, frameInterval), frameInterval);
+            var wavePosition = new AnimatedRepeater(0, 0, waveWavelength, perSecondToPerFrame(waveSpeed, frameInterval), frameInterval);
+            var textIndex = new AnimatedRepeater(0, 0, 3, 1, 1000);
 
-            var pulseFunc = Functions.flattenedGaussianCurve(Functions.constant(trackHeight), pulsePosition.getValue, Functions.constant(pulseWidth));
-            var trackFunction = Functions.sinusoid(pulseFunc, Functions.constant(waveWavelength), wavePosition.getValue);
+            var pulseFunc = Functions.flattenedGaussianCurve(trackHeight, pulsePosition.getValue, pulseWidth, 1.3);
+            var trackFunction = Functions.sinusoid(pulseFunc, waveWavelength, wavePosition.getValue);
 
             var wormIncrement = function (current)
             {
@@ -338,6 +436,20 @@
                 return gradient;
             };
 
+            var drawText = function ()
+            {
+                context.save();
+
+                context.scale(1, -1);
+
+                Canvas.copyState(textContextState, context);
+
+                var width = context.measureText(textValues[textValues.length - 1]).width;
+                context.fillText(textValues[textIndex.getValue()], -width / 2, 35);
+
+                context.restore();
+            }
+
             var drawTrack = function ()
             {
                 context.save();
@@ -357,7 +469,7 @@
                 if (trackStart < end && start < trackEnd)
                 {
                     context.save();
-                    context.translate(-wormContextState.shadowOffsetX || 0, wormContextState.shadowOffsetY || 0);
+                    context.translate(-wormContextState.shadowOffsetX() || 0, wormContextState.shadowOffsetY() || 0);
 
                     Canvas.copyState(wormContextState, context);
 
@@ -373,6 +485,18 @@
 
                 Canvas.centerAndPixelAlign();
 
+                scale = 1;
+                while (trackWidth * scale > canvas.width * 0.6666)
+                {
+                    scale *= 0.75;
+                }
+
+                context.scale(scale, scale);
+
+                drawText();
+
+                context.translate(0, trackHeight);
+
                 drawTrack();
 
                 drawWorm();
@@ -384,6 +508,25 @@
             pulsePosition.start();
             wavePosition.start();
             wormPosition.start();
+            textIndex.start();
+
+            var previousOnLoad = window.onload;
+            window.onload = function ()
+            {
+                if (typeof previousOnLoad === 'function')
+                {
+                    previousOnLoad();
+                }
+                /*
+                window.setTimeout(function () 
+                {
+                    window.clearInterval(animationInterval);
+                    pulsePosition.stop();
+                    wavePosition.stop();
+                    wormPosition.stop();
+                    textIndex.stop();
+                }, 2000);*/
+            };
         }());
     </script>
 </body>
