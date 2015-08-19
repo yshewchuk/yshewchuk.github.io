@@ -1,0 +1,10 @@
+﻿<h1>{{person.first}} {{person.last}}</h1>
+<address>
+    <span class="mailing" ng-show="person.address.line1">{{person.address.line1}}</span>
+    <span class="mailing" ng-show="person.address.line2">{{person.address.line2}}</span>
+    <span class="mailing" ng-show="person.address.city && person.address.province">{{person.address.city}}, {{person.address.province}}</span>
+    <span class="mailing" ng-show="person.address.postalCode">{{person.address.postalCode}}</span>
+    <span class="email" ng-show="person.contact.email"><a href="mailto:{{person.contact.email}}">{{person.contact.email}}</a></span>
+    <span class="skype" ng-show="person.contact.skype">{{person.contact.skype}}</span>
+    <span class="phone" ng-show="person.contact.phone">{{person.contact.phone}}</span>
+</address>

@@ -382,7 +382,7 @@
 
         document.initialize = [];
 
-        var ready = function () 
+        var ready = function ()
         {
             if (window.scriptsLoaded === true && window.stylesLoaded === true)
             {
@@ -394,36 +394,50 @@
         };
 
         var scripts = [
+            'https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js',
             'https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js',
+            'https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js',
             'resume.js'
         ];
 
-        LazyLoad.js(scripts, function () { scriptsLoaded = true; ready(); });
-
         var styles = [
-            'resume-screen.css'
+            'resume.css'
         ];
 
-        LazyLoad.css(styles, function () { stylesLoaded = true; ready(); });
+        window.setTimeout(function ()
+        {
+            LazyLoad.js(scripts, function () { scriptsLoaded = true; ready(); });
+
+            LazyLoad.css(styles, function () { stylesLoaded = true; ready(); });
+        }, 20);
     </script>
 
     <style type="text/css">
-        #loading-overlay {
-            height: 100%;
-            width: 100%;
+        body {
+            background-color: #ccccda;
+        }
+
+        #loading-animation {
+            height: calc(100% - 20px);
+            width: calc(100% - 20px);
+            z-index: -1;
+            padding: 10px;
+            margin: 0;
             position: fixed;
-            z-index: 100;
-            left: 0px;
-            top: 0px;
+            top: 0;
+            left: 0;
         }
     </style>
 </head>
 <body>
     <main ng-controller="ResumeCtrl">
-        <header>
-        </header>
+        <header></header>
+        <div document-title class="resume-section off-screen"></div>
+        <div technical-acumen class="resume-section off-screen"></div>
+        <div development-experience class="resume-section off-screen"></div>
+        <footer></footer>
     </main>
-    <canvas id="loading-overlay"></canvas>
+    <canvas id="loading-animation"></canvas>
     <script>
         "use strict";
 
@@ -636,7 +650,7 @@
                 };
             };
 
-            var canvas = document.getElementById('loading-overlay');
+            var canvas = document.getElementById('loading-animation');
             var context = canvas.getContext('2d');
             
             var scale = 1;
@@ -807,6 +821,7 @@
                     pulsePosition.stop();
                     wavePosition.stop();
                     wormPosition.stop();
+                    $(canvas).addClass('hidden');
                 }, 2000);
             });
         }());

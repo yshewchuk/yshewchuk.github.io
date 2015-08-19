@@ -1,0 +1,9 @@
+﻿<h2>Technical Acumen</h2>
+<div class="skills-container">
+    <div ng-repeat="category in skillCategories" class="skills-block">
+        <h3>{{category.title}}</h3>
+        <ul>
+            <li ng-repeat="skill in category.skills">{{skill.name}}</li>
+        </ul>
+    </div>
+</div>

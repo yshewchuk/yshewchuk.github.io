@@ -1,4 +1,16 @@
 ﻿{
   "first": "Yuri",
-  "last": "Shewchuk"
+  "last": "Shewchuk",
+  "contact": {
+    "email": "ycshewchuk@gmail.com",
+    "skype": "yuri.shewchuk",
+    "phone": "(403)399-5138"
+  },
+
+  "address": {
+    "line1": "Apt 2820, 565 Sherbourne St.",
+    "city": "Toronto",
+    "province": "ON",
+    "postalCode": "M4X 1W7"
+  }
 }

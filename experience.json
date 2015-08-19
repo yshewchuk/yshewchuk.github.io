@@ -1,0 +1,42 @@
+﻿{
+  "developmentExperience": [
+    {
+      "title": "Intermediate Software Developer",
+      "dateRange": "December 2014 - Present",
+      "employer": "Armstrong Fluid Technology",
+      "languages": [
+        "C#",
+        "HTML",
+        "Javascript"
+      ],
+      "technologies": [
+        "ASP.NET MVC",
+        "JQuery",
+        "Less"
+      ],
+      "accomplishments": [
+        "TBD"
+      ]
+    },
+    {
+      "title": "Software Developer",
+      "dateRange": "December 2011 - October 2014",
+      "employer": "SeisWare International Inc.",
+      "languages": [
+        "C#",
+        "C++",
+        "Fortran"
+      ],
+      "technologies": [
+        "WinForms",
+        ".NET 4.0",
+        "Crucible"
+      ],
+      "accomplishments": [
+        "Integrated signal processing library including improvements in performance and ease of use",
+        "Assisted in upgrading SeisWare from single-user to multi-user to accommodate enterprise environments",
+        "Introduced concept of MVC to the development team and attained widespread adoption"
+      ]
+    }
+  ]
+}

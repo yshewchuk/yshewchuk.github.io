@@ -1,0 +1,71 @@
+﻿[
+  {
+    "title": "Languages",
+    "skills": [
+      {
+        "name": "C#"
+      },
+      {
+        "name": "Transact-SQL"
+      },
+      {
+        "name": "HTML"
+      },
+      {
+        "name": "Javascript"
+      },
+      {
+        "name": "CSS"
+      },
+      {
+        "name": "C++"
+      }
+    ]
+  },
+  {
+    "title": "Frameworks",
+    "skills": [
+      {
+        "name": ".NET"
+      },
+      {
+        "name": "ASP.NET MVC"
+      },
+      {
+        "name": "JQuery"
+      },
+      {
+        "name": "SSRS"
+      },
+      {
+        "name": "WinForms"
+      },
+      {
+        "name": "Qt"
+      }
+    ]
+  },
+  {
+    "title": "Tools",
+    "skills": [
+      {
+        "name": "Visual Studio"
+      },
+      {
+        "name": "Microsoft SQL Server"
+      },
+      {
+        "name": "MSBuild"
+      },
+      {
+        "name": "Subversion"
+      },
+      {
+        "name": "Crucible"
+      },
+      {
+        "name": "Target Process"
+      }
+    ]
+  }
+]
