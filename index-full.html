@@ -431,11 +431,13 @@
 </head>
 <body>
     <main ng-controller="ResumeCtrl">
-        <header></header>
+        <a id="download" class="button off-screen" href="Yuri-Shewchuk_Resume.pdf"></a>
+        <a id="print" class="button off-screen" onclick="window.print()"></a>
         <div document-title class="resume-section off-screen"></div>
         <div technical-acumen class="resume-section off-screen"></div>
         <div development-experience class="resume-section off-screen"></div>
-        <footer></footer>
+        <div other-experience class="resume-section off-screen"></div>
+        <div education class="resume-section off-screen"></div>
     </main>
     <canvas id="loading-animation"></canvas>
     <script>

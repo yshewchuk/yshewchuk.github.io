@@ -8,23 +8,17 @@ resume.controller('ResumeCtrl', ['$scope', '$http', '$element', '$timeout', func
         'skillsTemplate',
         'skillCategories',
         'devExpTemplate',
-        'experience'
+        'otherExpTemplate',
+        'experience',
+        'educationTemplate',
+        'education'
     ];
 
     $scope.$watchGroup(requiredElements, function (newValues)
     {
         if (_.all(newValues))
         {
-            var sections = angular.element($element).children('.resume-section.off-screen');
-            var delay = 500;
-            _.forEach(sections, function (section)
-            {
-                $timeout(function ()
-                {
-                    angular.element(section).removeClass('off-screen');
-                }, delay);
-                delay += 100;
-            })
+            angular.element($element).children('.off-screen').removeClass('off-screen');
         }
     });
 
@@ -38,9 +32,12 @@ resume.controller('ResumeCtrl', ['$scope', '$http', '$element', '$timeout', func
         $scope.skillCategories = response.data; 
     });
 
-    $http.get('experience.json').then(function (response) 
-    { 
-        $scope.experience = response.data; 
+    $http.get('experience.json').then(function (response) {
+        $scope.experience = response.data;
+    });
+
+    $http.get('education.json').then(function (response) {
+        $scope.education = response.data;
     });
 }]);
 
@@ -74,6 +71,36 @@ resume.directive('developmentExperience', function ()
         {
             $scope.devExpTemplate = true;
         }
+    };
+});
+
+resume.directive('otherExperience', function ()
+{
+    return {
+        templateUrl: 'other-experience.html',
+        link: function ($scope)
+        {
+            $scope.otherExpTemplate = true;
+        }
+    };
+});
+
+resume.directive('education', function ()
+{
+    return {
+        templateUrl: 'education.html',
+        link: function ($scope)
+        {
+            $scope.educationTemplate = true;
+        }
+    };
+});
+
+resume.filter('digits', function ()
+{
+    return function (input)
+    {
+        return typeof input === 'string' ? input.replace(/\D/g, '') : '';
     };
 });
 

@@ -1,20 +1,14 @@
-﻿<h2>Development Experience</h2>
+<h2>Additional Experience</h2>
 <div class="section-container">
-    <div class="experience" ng-repeat="exp in experience.developmentExperience">
+    <div class="experience" ng-repeat="exp in experience.unrelatedExperience">
         <h3>{{exp.title}}</h3>
         <div class="date-range">{{exp.dateRange}}</div>
         <div class="institution">{{exp.employer}}</div>
         <div class="list-set-container">
-            <div class="languages-block list-block">
-                <h4>Languages</h4>
+            <div class="responsibilities-block list-block">
+                <h4>Responsibilities</h4>
                 <ul>
-                    <li ng-repeat="language in exp.languages">{{language}}</li>
-                </ul>
-            </div>
-            <div class="technologies-block list-block">
-                <h4>Technologies</h4>
-                <ul>
-                    <li ng-repeat="technology in exp.technologies">{{technology}}</li>
+                    <li ng-repeat="responsibility in exp.responsibilities">{{responsibility}}</li>
                 </ul>
             </div>
             <div class="accomplishments-block list-block">

@@ -7,15 +7,16 @@
       "languages": [
         "C#",
         "HTML",
-        "Javascript"
+        "JavaScript"
       ],
       "technologies": [
         "ASP.NET MVC",
-        "JQuery",
+        "jQuery",
         "Less"
       ],
       "accomplishments": [
-        "TBD"
+        "Designed and led a team of 3 - 4 developers to successfully implement product upselling mechanism",
+        "Designed and implemented a replacement for a highly-customized table user interface element"
       ]
     },
     {
@@ -33,9 +34,91 @@
         "Crucible"
       ],
       "accomplishments": [
-        "Integrated signal processing library including improvements in performance and ease of use",
-        "Assisted in upgrading SeisWare from single-user to multi-user to accommodate enterprise environments",
-        "Introduced concept of MVC to the development team and attained widespread adoption"
+        "Integrated and improved third party processing product leading to substantial revenue",
+        "Assisted in upgrading SeisWare to a multi-user application for enterprise environments",
+        "Was a key proponent of implementing code reviews throughout the development team"
+      ]
+    },
+    {
+      "title": "Intermediate Software Developer",
+      "dateRange": "May 2010 - December 2011",
+      "employer": "Circle Cardiovascular Imaging Inc.",
+      "languages": [
+        "C++",
+        "Java EE",
+		"JavaScript"
+      ],
+      "technologies": [
+        "QT",
+        "OpenGL",
+        "AJAX (jQuery)"
+      ],
+      "accomplishments": [
+        "Managed the complexity of DICOM integration by abstracting implementation details from API",
+        "Developed a 2D rendering framework which was more flexible and an order of magnitude faster",
+        "Designed and implemented a secure pay per use system which adheres to patient privacy regulations"
+      ]
+    },
+    {
+      "title": "Software Developer",
+      "dateRange": "August 2008 - May 2010",
+      "employer": "inUnison Technology Service Ltd.",
+      "languages": [
+        "C#",
+        "T-SQL",
+		"Classic ASP"
+      ],
+      "technologies": [
+        "ASP.NET",
+        "SSRS",
+        "SSIS"
+      ],
+      "accomplishments": [
+        "Designed and began implementing a long term plan to upgrade their member authentication solution",
+        "Created and configured a full 3-tier development environment using available hardware",
+        "Maintained over 60 internal applications and over 300 reports within a very small team"
+      ]
+    },
+    {
+      "title": "Software Development and Testing Intern",
+      "dateRange": "May 2006 - August 2007",
+      "employer": "Calgary Scientific Inc.",
+      "languages": [
+        "C++"
+      ],
+      "technologies": [
+        "QT",
+        "OpenGL"
+      ],
+      "accomplishments": [
+        "Developed a replacement for obsolete data loading and communication libraries",
+        "Was involved in the redesign process for the flagship ResolutionMD product"
+      ]
+    }
+  ],
+  "unrelatedExperience": [
+    {
+      "title": "University Course Lab Designer",
+      "dateRange": "May 2008 - August 2008",
+      "employer": "Dr. Vahid Garousi, University of Calgary",
+      "responsibilities": [
+		"Planned, prepared, and documented labs for SENG 521 - Software Reliability and Testing",
+		"Labs included topics: regression testing, unit testing, mutation testing, and test plan adequacy criteria"
+	  ],
+      "accomplishments": [
+        "The lab materials were well received, and were in use for three years of the course"
+      ]
+    },
+    {
+      "title": "Non-Commissioned Member",
+      "dateRange": "July 2004 - March 2007",
+      "employer": "Canadian Armed Forces, 33 Field Engineers Squadron",
+      "responsibilities": [
+		"Primary role of field engineers is to provide friendly troops with the ability to live, move, and fight while denying those abilities to the enemy",
+		"Secondary role of field engineers is to supplement infantry forces"
+	  ],
+      "accomplishments": [
+        "Held the ranks of Private, Sapper, and Corporal before resigning to focus on my civilian career"
       ]
     }
   ]
