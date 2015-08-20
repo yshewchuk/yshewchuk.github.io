@@ -2,6 +2,8 @@
 
 main
 {
+    min-width: 320px;
+    min-height: 500px;
     margin: 0 auto;
     width: 1024px;
     font-family: 'Merriweather Sans', sans-serif;
@@ -14,7 +16,6 @@ main
 {
     main
     {
-        min-width: 320px;
         width: calc(100% - 20px);
         margin: 0 10px;
     }
@@ -170,12 +171,12 @@ address span
     }
 }
 
-.resume-section:nth-child(1) { transition-delay: 0.6s; }
-.resume-section:nth-child(2) { transition-delay: 0.75s; }
-.resume-section:nth-child(3) { transition-delay: 0.9s; }
-.resume-section:nth-child(4) { transition-delay: 1.05s; }
-.resume-section:nth-child(5) { transition-delay: 1.2s; }
-.resume-section:nth-child(6) { transition-delay: 1.35s; }
+.resume-section:nth-child(1) { transition-delay: 0.45s; }
+.resume-section:nth-child(2) { transition-delay: 0.6s; }
+.resume-section:nth-child(3) { transition-delay: 0.75s; }
+.resume-section:nth-child(4) { transition-delay: 0.9s; }
+.resume-section:nth-child(5) { transition-delay: 1.05s; }
+.resume-section:nth-child(6) { transition-delay: 1.2s; }
 
 .resume-section.off-screen
 {
@@ -338,7 +339,6 @@ address span a::before
     height: 32px;
     border-radius: 4px;
     background-color: black;
-    background-image: url('Download.svg');
     background-repeat: no-repeat;
     background-size: 24px;
     background-position: center;
@@ -375,6 +375,11 @@ main a:nth-of-type(4) { transition-delay: 1.0s; top: 118px; left: 10px; }
 #print
 {
     background-image: url('Print.svg');
+}
+
+#show-loading
+{
+    background-image: url('GoToLoading.svg');
 }
 
 @media print

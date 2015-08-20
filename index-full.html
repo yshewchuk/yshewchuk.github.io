@@ -378,19 +378,25 @@
         })(this.document);
     </script>
     <script>
-        var scriptsLoaded = false;
-        var stylesLoaded = false;
+        "use strict";
 
-        document.initialize = [];
+        var YS = window.YS || {};
+        YS.scriptsLoaded = false;
+        YS.stylesLoaded = false;
+        
+        YS.documentInitialize = [];
 
-        var ready = function ()
+        YS.scriptsOrStylesReady = function ()
         {
-            if (window.scriptsLoaded === true && window.stylesLoaded === true)
+            if (YS.scriptsLoaded === true && YS.stylesLoaded === true)
             {
-                for (var i = 0; i < document.initialize.length; i++)
+                $(document).waitForImages(function ()
                 {
-                    document.initialize[i]();
-                }
+                    for (var i = 0; i < YS.documentInitialize.length; i++)
+                    {
+                        YS.documentInitialize[i]();
+                    }
+                });
             }
         };
 
@@ -398,6 +404,7 @@
             'https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js',
             'https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js',
             'https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js',
+            'http://cdnjs.cloudflare.com/ajax/libs/jquery.waitforimages/1.5.0/jquery.waitforimages.min.js',
             'resume.js'
         ];
 
@@ -407,9 +414,9 @@
 
         window.setTimeout(function ()
         {
-            LazyLoad.js(scripts, function () { scriptsLoaded = true; ready(); });
+            LazyLoad.js(scripts, function () { YS.scriptsLoaded = true; YS.scriptsOrStylesReady(); });
 
-            LazyLoad.css(styles, function () { stylesLoaded = true; ready(); });
+            LazyLoad.css(styles, function () { YS.stylesLoaded = true; YS.scriptsOrStylesReady(); });
         }, 20);
     </script>
 
@@ -432,19 +439,22 @@
 </head>
 <body>
     <main ng-controller="ResumeCtrl">
-        <a id="download" class="button off-screen" href="Yuri-Shewchuk_Resume.pdf"></a>
-        <a id="print" class="button off-screen" onclick="window.print()"></a>
+        <a id="download" class="button off-screen" title="Download PDF version" href="Yuri-Shewchuk_Resume.pdf"></a>
+        <a id="print" class="button off-screen" title="Print!" onclick="window.print()"></a>
+        <a id="show-loading" class="button off-screen" title="Toggle display of loading animation" ng-click="displayAnimation = !displayAnimation"></a>
         <div document-title class="resume-section off-screen"></div>
         <div technical-acumen class="resume-section off-screen"></div>
         <div development-experience class="resume-section off-screen"></div>
         <div other-experience class="resume-section off-screen"></div>
         <div education class="resume-section off-screen"></div>
+        <canvas loading-animation id="loading-animation"></canvas>
     </main>
-    <canvas id="loading-animation"></canvas>
-    <script>
+    <script> 
         "use strict";
 
-        (function ()
+        window.YS = YS || {};
+
+        YS.loadingAnimation = (function ()
         {
             var ArcLength = (function ()
             {
@@ -527,9 +537,9 @@
                 return {
                     findWidthWithArcLength: findWidthWithArcLength
                 };
-            }());
+            } ());
 
-            var Canvas = (function() 
+            var Canvas = (function ()
             {
                 var drawFunction = function (context, func, startX, endX, segments)
                 {
@@ -572,7 +582,7 @@
                     copyState: copyState,
                     centerAndPixelAlign: centerAndPixelAlign
                 };
-            }());
+            } ());
 
             var Functions = (function ()
             {
@@ -615,7 +625,7 @@
                     flattenedGaussianCurve: flattenedGaussianCurve,
                     sinusoid: sinusoid
                 }
-            }());
+            } ());
 
             var AnimatedRepeater = function (start, lowerBound, upperBound, increment, timeInterval)
             {
@@ -637,7 +647,7 @@
                 };
 
                 return {
-                    getValue: function () 
+                    getValue: function ()
                     {
                         return value;
                     },
@@ -655,7 +665,7 @@
 
             var canvas = document.getElementById('loading-animation');
             var context = canvas.getContext('2d');
-            
+
             var scale = 1;
 
             var trackHeight = 60; // pixels
@@ -669,7 +679,7 @@
 
             var pulseSpeed = -85; // pixels / s
             var pulseWidth = 120; // pixels
-            
+
             var wormLength = 150; // pixels
             var wormSpeed = 200; // pixels / s
             var wormSegments = 200;
@@ -678,8 +688,10 @@
             var wormColor2 = '#0044aa';
             var wormRadius1 = 2; // pixels
             var wormRadius2 = 50; // pixels
-            
+
             var text = 'loading';
+
+            var isRunning = false;
 
             var textContextState = {
                 textAlign: 'center',
@@ -711,12 +723,12 @@
 
             var wormStart = trackStart - wormOverflow;
             var wormEnd = trackEnd + wormLength + wormOverflow;
-            
+
             var perSecondToPerFrame = function (valuePerSecond, frameInterval)
             {
                 return valuePerSecond * frameInterval / 1000;
             };
-            
+
             var pulsePosition = new AnimatedRepeater(trackEnd + pulseWidth, trackStart - pulseWidth, trackEnd + pulseWidth, perSecondToPerFrame(pulseSpeed, frameInterval), frameInterval);
             var wavePosition = new AnimatedRepeater(0, 0, waveWavelength, perSecondToPerFrame(waveSpeed, frameInterval), frameInterval);
 
@@ -729,7 +741,7 @@
             };
 
             var wormPosition = new AnimatedRepeater(wormStart, wormStart, wormEnd, wormIncrement, frameInterval);
-            
+
             wormContextState.strokeStyle = function ()
             {
                 var pos = {
@@ -810,24 +822,45 @@
                 context.restore();
             };
 
-            var animationInterval = window.setInterval(draw, animationInterval);
-            pulsePosition.start();
-            wavePosition.start();
-            wormPosition.start();
+            var animationInterval;
 
-            var previousOnLoad = window.onload;
-            document.initialize.push(function ()
-            {
-                window.setTimeout(function () 
+            return {
+                start: function ()
                 {
-                    window.clearInterval(animationInterval);
-                    pulsePosition.stop();
-                    wavePosition.stop();
-                    wormPosition.stop();
-                    $(canvas).addClass('hidden');
-                }, 2000);
-            });
-        }());
+                    if (isRunning)
+                    {
+                        return;
+                    }
+                    if (window.jQuery)
+                    {
+                        $(canvas).toggleClass('hidden', false);
+                    }
+                    animationInterval = window.setInterval(draw, animationInterval);
+                    pulsePosition.start();
+                    wavePosition.start();
+                    wormPosition.start();
+                    isRunning = true;
+                },
+                stop: function (delay)
+                {
+                    window.setTimeout(function ()
+                    {
+                        window.clearInterval(animationInterval);
+                        pulsePosition.stop();
+                        wavePosition.stop();
+                        wormPosition.stop();
+                        if (window.jQuery)
+                        {
+                            $(canvas).toggleClass('hidden', true);
+                        }
+                        isRunning = false;
+                    }, delay || 2500);
+                },
+                running: isRunning
+            };
+        } ());
+
+        YS.loadingAnimation.start();
     </script>
 </body>
 </html>

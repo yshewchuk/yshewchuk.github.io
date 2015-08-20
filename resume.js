@@ -14,11 +14,13 @@ resume.controller('ResumeCtrl', ['$scope', '$http', '$element', '$timeout', func
         'education'
     ];
 
+    $scope.displayAnimation = true;
+
     $scope.$watchGroup(requiredElements, function (newValues)
     {
         if (_.all(newValues))
         {
-            angular.element($element).children('.off-screen').removeClass('off-screen');
+            $scope.displayAnimation = false;
         }
     });
 
@@ -96,6 +98,35 @@ resume.directive('education', function ()
     };
 });
 
+resume.directive('loadingAnimation', function ()
+{
+    return {
+        link: function ($scope, $element)
+        {
+            $scope.displayAnimation = true;
+            $scope.$watch('displayAnimation', function (newValue)
+            {
+                if (newValue)
+                {
+                    if (!YS.loadingAnimation.running)
+                    {
+                        YS.loadingAnimation.start();
+                    }
+                    angular.element(document).find('.resume-section').toggleClass('off-screen', true);
+                }
+                else
+                {
+                    if (YS.loadingAnimation.running)
+                    {
+                        YS.loadingAnimation.stop(3000);
+                    }
+                    angular.element(document).find('.off-screen').toggleClass('off-screen', false);
+                }
+            });
+        }
+    };
+});
+
 resume.filter('digits', function ()
 {
     return function (input)
@@ -104,7 +135,7 @@ resume.filter('digits', function ()
     };
 });
 
-document.initialize.push(function ()
+YS.documentInitialize.push(function ()
 {
     angular.bootstrap(document, ['resume']);
 });
