@@ -14,12 +14,13 @@ main
 {
     main
     {
+        min-width: 320px;
         width: calc(100% - 20px);
         margin: 0 10px;
     }
 }
 
-@media print
+@media print, (max-width: 340px)
 {
     body
     {
