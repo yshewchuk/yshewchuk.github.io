@@ -388,6 +388,16 @@ main a:nth-of-type(4) { transition-delay: 1.0s; top: 118px; left: 10px; }
     {
         display: none;
     }
+
+    div[other-experience] .experience:first-child
+    {
+        display: none;
+    }
+
+    div[other-experience] .experience:nth-child(2)
+    {
+        border-top: none;
+    }
 }
 
 .hidden
