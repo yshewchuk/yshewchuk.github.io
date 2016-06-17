@@ -12,10 +12,10 @@
         "name": "HTML"
       },
       {
-        "name": "Javascript"
+        "name": "JavaScript"
       },
       {
-        "name": "CSS"
+        "name": "SCSS / CSS"
       },
       {
         "name": "C++"
@@ -29,19 +29,19 @@
         "name": ".NET"
       },
       {
-        "name": "ASP.NET MVC"
+        "name": "ASP.NET MVC / Web API"
+      },
+      {
+        "name": "AngularJS"
+      },
+      {
+        "name": "RequireJS"
       },
       {
         "name": "jQuery"
       },
       {
-        "name": "SSRS"
-      },
-      {
         "name": "WinForms"
-      },
-      {
-        "name": "Qt"
       }
     ]
   },

@@ -1,8 +1,27 @@
 ﻿{
   "developmentExperience": [
     {
+      "title": "Senior Software Developer",
+      "dateRange": "April 2016 - Present",
+      "employer": "Armstrong Fluid Technology",
+      "languages": [
+        "C#",
+        "HTML",
+        "JavaScript"
+      ],
+      "technologies": [
+        "ASP.NET Web API",
+        "AngularJS",
+        "SCSS"
+      ],
+      "accomplishments": [
+        "Proposed foundational architectural changes including technology stack updates and transitioning to microservices",
+        "Designed and led a team of 5 - 6 developers to integrate third party software including architectural changes"
+      ]
+    },
+    {
       "title": "Intermediate Software Developer",
-      "dateRange": "December 2014 - Present",
+      "dateRange": "December 2014 - March 2016",
       "employer": "Armstrong Fluid Technology",
       "languages": [
         "C#",
@@ -12,7 +31,7 @@
       "technologies": [
         "ASP.NET MVC",
         "jQuery",
-        "Less"
+        "LESS"
       ],
       "accomplishments": [
         "Designed and led a team of 3 - 4 developers to successfully implement product upselling mechanism",
