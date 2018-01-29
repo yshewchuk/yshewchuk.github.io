@@ -177,6 +177,7 @@ address span
 .resume-section:nth-child(4) { transition-delay: 0.9s; }
 .resume-section:nth-child(5) { transition-delay: 1.05s; }
 .resume-section:nth-child(6) { transition-delay: 1.2s; }
+.resume-section:nth-child(7) { transition-delay: 1.35s; }
 
 .resume-section.off-screen
 {
@@ -389,14 +390,9 @@ main a:nth-of-type(4) { transition-delay: 1.0s; top: 118px; left: 10px; }
         display: none;
     }
 
-    div[other-experience] .experience:first-child
+    div[other-experience]
     {
         display: none;
-    }
-
-    div[other-experience] .experience:nth-child(2)
-    {
-        border-top: none;
     }
 }
 
