@@ -1,8 +1,24 @@
 ﻿{
   "developmentExperience": [
     {
+      "title": "Java Developer - Cloud",
+      "dateRange": "November 2016 - Present",
+      "employer": "Scotiabank",
+      "languages": ["Java"],
+      "technologies": [
+        "Spring",
+        "Pivotal Cloud Foundry",
+        "Microsoft Azure"
+      ],
+      "accomplishments": [
+        "Successfully deployed secure instances of Pivotal Cloud Foundry platform to the public cloud in Microsoft Azure for production use",
+        "Implemented microservices as part of a Banking as a Service API platform to deliver banking functionality to software initiatives in Chile",
+        "Set and continually raised the bar for testing quality and adequacy"
+      ]
+    },
+    {
       "title": "Senior Software Developer",
-      "dateRange": "April 2016 - Present",
+      "dateRange": "April 2016 - November 2016",
       "employer": "Armstrong Fluid Technology",
       "languages": [
         "C#",

@@ -3,6 +3,9 @@
     "title": "Languages",
     "skills": [
       {
+        "name": "Java"
+      },
+      {
         "name": "C#"
       },
       {
@@ -16,15 +19,15 @@
       },
       {
         "name": "SCSS / CSS"
-      },
-      {
-        "name": "C++"
       }
     ]
   },
   {
     "title": "Frameworks",
     "skills": [
+      {
+        "name": "Spring"
+      },
       {
         "name": ".NET"
       },
@@ -39,9 +42,6 @@
       },
       {
         "name": "jQuery"
-      },
-      {
-        "name": "WinForms"
       }
     ]
   },
@@ -49,22 +49,22 @@
     "title": "Tools",
     "skills": [
       {
+        "name": "IntelliJ IDEA"
+      },
+      {
+        "name": "Bitbucket"
+      },
+      {
+        "name": "JIRA"
+      },
+      {
         "name": "Visual Studio"
       },
       {
         "name": "Microsoft SQL Server"
       },
       {
-        "name": "MSBuild"
-      },
-      {
         "name": "Subversion"
-      },
-      {
-        "name": "Crucible"
-      },
-      {
-        "name": "Target Process"
       }
     ]
   }
