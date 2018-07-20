@@ -11,9 +11,11 @@
         "Microsoft Azure"
       ],
       "accomplishments": [
-        "Successfully deployed secure instances of Pivotal Cloud Foundry platform to the public cloud in Microsoft Azure for production use",
-        "Implemented microservices as part of a Banking as a Service API platform to deliver banking functionality to software initiatives in Chile",
-        "Set and continually raised the bar for testing quality and adequacy"
+        "Successfully deployed secure instances of Pivotal Cloud Foundry PaaS to the public cloud in Microsoft Azure for production use",
+        "Created a three-day training program for other developers within ScotiaBank and provided training for over 50 developers",
+        "Implemented onboarding and maintenance tools to allow developers to onboard and deploy applications within minutes",
+        "Implemented Banking as a Service API platform microservices to deliver banking functionality to software initiatives in Chile",
+        "Continually raised the bar for code quality and test adequacy requirements"
       ]
     },
     {
