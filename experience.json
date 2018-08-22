@@ -11,11 +11,11 @@
         "Microsoft Azure"
       ],
       "accomplishments": [
-        "Successfully deployed secure instances of Pivotal Cloud Foundry PaaS to the public cloud in Microsoft Azure for production use",
-        "Created a three-day training program for other developers within ScotiaBank and provided training for over 50 developers",
+        "Deployed secure instances of Pivotal Cloud Foundry PaaS to Microsoft Azure for production applications",
+        "Created a three-day training program for developers within ScotiaBank and provided training for over 50 developers",
         "Led a team of three to win an internal inter-departmental hackathon by focusing on following industry best practices",
-        "Implemented onboarding and maintenance tools to allow developers to onboard and deploy applications to the cloud within minutes",
-        "Implemented Banking as a Service API platform microservices to deliver banking functionality to software initiatives in Chile",
+        "Implemented onboarding and maintenance tools to allow instant self-service of cloud resources for developers",
+        "Implemented Banking as a Service API microservices to deliver banking functionality to software initiatives in Chile",
         "Continually raised the bar for code quality and test adequacy requirements"
       ]
     },
@@ -35,9 +35,9 @@
       ],
       "accomplishments": [
         "Proposed foundational architectural changes including technology stack updates and transitioning to microservices",
-        "Designed and led a team of 5 - 6 developers to successfully implement proof of concept for integration of third party configurator software",
-        "Providing architectural and technical guidance on full implementation of integration of several third party software packages",
-        "Championed adoption of scrum process within the development team and coached the team in adopting industry best practices"
+        "Led a team of 6 to successfully implement proof of concept for integration of third party configurator software",
+        "Provided architectural and technical guidance on implementation of integration of several third party software packages",
+        "Championed adoption of scrum process within the team and coached the team in adopting industry best practices"
       ]
     },
     {
