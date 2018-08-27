@@ -393,7 +393,7 @@
         var YS = window.YS || {};
         YS.scriptsLoaded = false;
         YS.stylesLoaded = false;
-        
+
         YS.documentInitialize = [];
 
         YS.scriptsOrStylesReady = function ()
@@ -414,7 +414,7 @@
             'https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js',
             'https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js',
             'https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js',
-            'http://cdnjs.cloudflare.com/ajax/libs/jquery.waitforimages/1.5.0/jquery.waitforimages.min.js',
+            'https://cdnjs.cloudflare.com/ajax/libs/jquery.waitforimages/1.5.0/jquery.waitforimages.min.js',
             'resume.js'
         ];
 
@@ -445,10 +445,10 @@
             top: 0;
             left: 0;
         }
-        
+
         @media print
         {
-            #loading-animation 
+            #loading-animation
             {
                 display: none !important;
             }
@@ -467,7 +467,7 @@
         <div education class="resume-section off-screen"></div>
         <canvas loading-animation id="loading-animation"></canvas>
     </main>
-    <script> 
+    <script>
         "use strict";
 
         window.YS = YS || {};
