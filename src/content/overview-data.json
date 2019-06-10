@@ -1,0 +1,317 @@
+{
+  "languageOverTime": {
+    "data": [{
+      "year": "2003",
+      "SQL": 0,
+      "C++": 0.2,
+      "C#": 0,
+      "Javascript": 0,
+      "Java": 0
+    },{
+      "year": "2004",
+      "SQL": 0.1,
+      "C++": 0.2,
+      "C#": 0,
+      "Javascript": 0,
+      "Java": 0
+    },{
+      "year": "2005",
+      "SQL": 0.2,
+      "C++": 0.4,
+      "C#": 0,
+      "Javascript": 0,
+      "Java": 0
+    },{
+      "year": "2006",
+      "SQL": 0,
+      "C++": 0.6,
+      "C#": 0,
+      "Javascript": 0,
+      "Java": 0
+    },{
+      "year": "2007",
+      "SQL": 0,
+      "C++": 0.7,
+      "C#": 0,
+      "Javascript": 0,
+      "Java": 0.3
+    },{
+      "year": "2008",
+      "SQL": 0.1,
+      "C++": 0,
+      "C#": 0.8,
+      "Javascript": 0,
+      "Java": 0.1
+    },{
+      "year": "2009",
+      "SQL": 0.4,
+      "C++": 0,
+      "C#": 0.6,
+      "Javascript": 0,
+      "Java": 0
+    },{
+      "year": "2010",
+      "SQL": 0.3,
+      "C++": 0.4,
+      "C#": 0.2,
+      "Javascript": 0,
+      "Java": 0
+    },{
+      "year": "2011",
+      "SQL": 0.1,
+      "C++": 0.4,
+      "C#": 0,
+      "Javascript": 0.2,
+      "Java": 0.3
+    },{
+      "year": "2012",
+      "SQL": 0,
+      "C++": 0.5,
+      "C#": 0.5,
+      "Javascript": 0,
+      "Java": 0
+    },{
+      "year": "2012",
+      "SQL": 0,
+      "C++": 0.4,
+      "C#": 0.6,
+      "Javascript": 0,
+      "Java": 0
+    },{
+      "year": "2013",
+      "SQL": 0,
+      "C++": 0.3,
+      "C#": 0.7,
+      "Javascript": 0,
+      "Java": 0
+    },{
+      "year": "2014",
+      "SQL": 0,
+      "C++": 0.2,
+      "C#": 0.8,
+      "Javascript": 0,
+      "Java": 0
+    },{
+      "year": "2015",
+      "SQL": 0,
+      "C++": 0,
+      "C#": 0.6,
+      "Javascript": 0.4,
+      "Java": 0
+    },{
+      "year": "2016",
+      "SQL": 0,
+      "C++": 0,
+      "C#": 0.4,
+      "Javascript": 0.6,
+      "Java": 0
+    },{
+      "year": "2017",
+      "SQL": 0,
+      "C++": 0,
+      "C#": 0,
+      "Javascript": 0,
+      "Java": 0.7
+    },{
+      "year": "2018",
+      "SQL": 0,
+      "C++": 0,
+      "C#": 0,
+      "Javascript": 0.4,
+      "Java": 0.6
+    },{
+      "year": "2019",
+      "SQL": 0,
+      "C++": 0,
+      "C#": 0,
+      "Javascript": 0.6,
+      "Java": 0.4
+    }]
+  },
+  "languageSkill": {
+    "data": [{
+      "name": "Java",
+      "value": 8.5
+    },{
+      "name": "Javascript",
+      "value": 8
+    },{
+      "name": "C#",
+      "value": 7.5
+    },{
+      "name": "Shell",
+      "value": 7.5
+    },{
+      "name": "C++",
+      "value": 7
+    },{
+      "name": "SQL",
+      "value": 6.5
+    }]
+  },
+  "technologyKnowledge": {
+    "data": [
+      {
+        "name": "Spring Boot",
+        "value": 8.5
+      },
+      {
+        "name": ".NET",
+        "value": 7
+      },
+      {
+        "name": "Kubernetes",
+        "value": 6
+      },
+      {
+        "name": "Google Cloud Platform",
+        "value": 5
+      },
+      {
+        "name": "Cloud Foundry",
+        "value": 9
+      },
+      {
+        "name": "Less",
+        "value": 6
+      },
+      {
+        "name": "Scss",
+        "value": 6
+      },
+      {
+        "name": "Microsoft Azure",
+        "value": 6.5
+      },
+      {
+        "name": "Angular",
+        "value": 6
+      },
+      {
+        "name": "Docker",
+        "value": 7
+      },
+      {
+        "name": "Web Components",
+        "value": 7
+      },
+      {
+        "name": "React",
+        "value": 8
+      },
+      {
+        "name": "CSS",
+        "value": 9
+      },
+      {
+        "name": "NUnit",
+        "value": 7
+      },
+      {
+        "name": "Jest",
+        "value": 5
+      },
+      {
+        "name": "Jasmine",
+        "value": 7
+      },
+      {
+        "name": "Mocha",
+        "value": 8
+      },
+      {
+        "name": "Mockito",
+        "value": 8
+      },
+      {
+        "name": "WireMock",
+        "value": 7.5
+      },
+      {
+        "name": "JUnit",
+        "value": 8
+      }]
+  },
+  "interests": {
+    "data": [
+      {
+        "label": "Code Quality",
+        "value": 20,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "label": "Process Improvement",
+        "value": 19,
+        "x": 90,
+        "y": 90
+      },
+      {
+        "label": "Scrum",
+        "value": 18,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "label": "Software Architecture",
+        "value": 18,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "label": "Design Principles",
+        "value": 17,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "label": "Design Patterns",
+        "value": 16,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "label": "Value Delivery",
+        "value": 16,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "label": "Agile Methodologies",
+        "value": 15,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "label": "Testing",
+        "value": 14,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "label": "Automation",
+        "value": 14,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "label": "Leadership",
+        "value": 13,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "label": "Test Driven Development",
+        "value": 12,
+        "x": 0,
+        "y": 0
+      },
+      {
+        "label": "Domain Driven Design",
+        "value": 12,
+        "x": 0,
+        "y": 0
+      }
+    ]
+  }
+}

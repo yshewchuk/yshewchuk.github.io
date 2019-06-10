@@ -1,0 +1,33 @@
+.accomplishments {
+
+}
+
+.languages {
+  min-width: 165px;
+  flex-grow: 1;
+
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    display: inline-block;
+    margin-right: 20px;
+  }
+}
+
+.technologies {
+  min-width: 240px;
+  flex-grow: 1;
+
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    display: inline-block;
+    margin-right: 20px;
+  }
+}

@@ -1,0 +1,43 @@
+.resume {
+  margin-left: auto;
+  margin-right: auto;
+
+  background-color: white;
+
+  @media screen {
+    box-shadow: 6px 6px 5px 0px rgba(0,0,0,0.5);
+  }
+
+  overflow: auto;
+
+  @media print {
+    .additionalExperience {
+      margin-top: 30px;
+    }
+   .experience section:nth-child(5) {
+      padding-top: 35px;
+    }
+  }
+
+  @media print, (min-width: 767.9px) {
+    .overview, .education, .additionalExperience {
+      min-width: 342px;
+      max-width: 342px;
+      padding-left: 0;
+      float: right;
+    }
+
+    .bio {
+      font-size: 14px;
+    }
+
+    .bio, .experience {
+      float: left;
+      max-width: calc(100% - 342px);
+    }
+  }
+
+  section {
+    box-sizing: border-box;
+  }
+}

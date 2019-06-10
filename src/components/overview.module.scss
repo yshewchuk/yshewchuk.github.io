@@ -1,0 +1,106 @@
+.overview {
+
+  display: flex;
+  flex-wrap: wrap;
+
+  > div {
+    margin: 10px;
+  }
+
+  .langOverTime {
+    margin-left: -40px;
+  }
+
+  h1 {
+    padding-top: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0;
+  }
+
+  .technologies {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    max-width: 330px;
+  }
+
+  .technology {
+    flex-grow: 1;
+    padding: 2px 10px;
+    border-width: 1px;
+    border-style: solid;
+    text-align: center;
+  }
+
+  .interests {
+    width: 300px;
+    overflow: visible;
+  }
+
+  .hobbies {
+    display: flex;
+    justify-content: space-between;
+    width: 300px;
+
+    > div {
+      text-align: center;
+    }
+  }
+
+  h2 {
+    font-size: 12px;
+    margin-bottom: 0;
+    margin-top: 5px;
+  }
+
+  .icon {
+    width: 40px;
+    height: auto;
+  }
+
+  .techKnowledge50 {
+    background-color: #A38D49;
+    border-color: darken(#A38D49, 10%);
+  }
+  .techKnowledge55 {
+    background-color: #A59A4B;
+    border-color: darken(#A59A4B, 10%);
+  }
+  .techKnowledge60 {
+    background-color: #A7A84C;
+    border-color: darken(#A7A84C, 10%);
+  }
+  .techKnowledge65 {
+    background-color: #9EAA4E;
+    border-color: darken(#9EAA4E, 10%);
+  }
+  .techKnowledge70 {
+    background-color: #94AC50;
+    border-color: darken(#94AC50, 10%);
+  }
+  .techKnowledge75 {
+    background-color: #8BAF52;
+    border-color: darken(#8BAF52, 10%);
+  }
+  .techKnowledge80 {
+    background-color: #81B154;
+    border-color: darken(#81B154, 10%);
+  }
+  .techKnowledge85 {
+    background-color: #77B356;
+    border-color: darken(#77B356, 10%);
+  }
+  .techKnowledge90 {
+    background-color: #6EB559;
+    border-color: darken(#6EB559, 10%);
+  }
+  .techKnowledge95 {
+    background-color: #69B65A;
+    border-color: darken(#69B65A, 10%);
+  }
+  .techKnowledge100 {
+    background-color: #64B85B;
+    border-color: darken(#64B85B, 10%);
+  }
+}

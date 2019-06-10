@@ -3,14 +3,16 @@
   "last": "Shewchuk",
   "contact": {
     "email": "ycshewchuk@gmail.com",
-    "skype": "yuri.shewchuk",
-    "phone": "(403)399-5138"
+    "phone": {
+      "display": "(403)399-5138",
+      "pure": "14033995138"
+    }
   },
 
   "address": {
-    "line1": "Apt 2820, 565 Sherbourne St.",
+    "line1": "Apt 608, 70 Distillery Lane",
     "city": "Toronto",
     "province": "ON",
-    "postalCode": "M4X 1W7"
+    "postalCode": "M5A 0E3"
   }
 }

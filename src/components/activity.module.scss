@@ -1,0 +1,61 @@
+.activity {
+  margin-bottom: 20px;
+  margin-top: 6px;
+  
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  h1 {
+    margin: 0;
+    font-size: 16px;
+    display: inline-block;
+  }
+
+  .date-range {  
+    height: 22px;
+    width: 100%;
+    margin: 3px 0;
+
+    font-size: 14px;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+
+    rect {
+      fill: #0c528b;
+      stroke: black;
+      fill-opacity: 0.5;
+    }
+
+    .smallText {
+      font-size: 12px;
+    }
+  }
+
+  h2 {
+    font-size: 14px;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    align-self: flex-end;
+  }
+
+  h3 {
+    padding-top: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0;
+  }
+
+  ul {
+    margin: 0;
+    list-style-type: circle;
+    padding-left: 24px;
+  }
+
+  li {
+    padding-left: 0;
+    font-size: 12px;
+  }
+}

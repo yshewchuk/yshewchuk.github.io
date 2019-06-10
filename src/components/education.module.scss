@@ -1,0 +1,35 @@
+.accomplishments {
+
+}
+
+.languages {
+  display: block;
+  width: 33%;
+  float: left;
+
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    display: inline-block;
+    margin-right: 20px;
+  }
+}
+
+.technologies {
+  display: block;
+  width: 66%;
+  float: right;
+
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    display: inline-block;
+    margin-right: 20px;
+  }
+}

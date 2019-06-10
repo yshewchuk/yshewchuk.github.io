@@ -1,27 +1,43 @@
 ﻿{
   "developmentExperience": [
     {
-      "title": "Java Developer - Cloud",
-      "dateRange": "November 2016 - Present",
+      "id": "scotia-senior",
+      "title": "Senior Software Engineer",
+      "dateRange": {"from": "2018-08-01"},
       "employer": "Scotiabank",
-      "languages": ["Java"],
+      "languages": ["Java", "Javascript"],
       "technologies": [
-        "Spring",
-        "Pivotal Cloud Foundry",
-        "Microsoft Azure"
+        "React",
+        "Spring Boot"
       ],
       "accomplishments": [
-        "Deployed secure instances of Pivotal Cloud Foundry PaaS to Microsoft Azure for production applications",
-        "Created a three-day training program for developers within ScotiaBank and provided training for over 50 developers",
-        "Led a team of three to win an internal inter-departmental hackathon by focusing on following industry best practices",
-        "Implemented onboarding and maintenance tools to allow instant self-service of cloud resources for developers",
-        "Implemented Banking as a Service API microservices to deliver banking functionality to software initiatives in Chile",
-        "Continually raised the bar for code quality and test adequacy requirements"
+        "Lead a team of 5 developers towards a major rearchitecture of self-service platform",
+        "Designed a process framework for publishing Scotiabank-sponsored open source software",
+        "Executed process to successfully publish new Scotiabank-sponsored open source projects",
+        "Created and delivered a three-day training program to over 60 developers within Scotiabank"
       ]
     },
     {
+      "id": "scotia-java",
+      "title": "Java Developer - Cloud",
+      "dateRange": {"from": "2016-11-01", "to": "2018-08-01"},
+      "employer": "Scotiabank",
+      "languages": ["Java"],
+      "technologies": [
+        "Spring Boot",
+        "Cloud Foundry"
+      ],
+      "accomplishments": [
+        "Deployed secure instances of Pivotal Cloud Foundry PaaS to Microsoft Azure for production applications",
+        "Led a team of three to win an internal inter-departmental hackathon by focusing on following industry best practices",
+        "Implemented Banking as a Service API microservices to deliver banking functionality to software initiatives in Chile",
+        "Continually raised the bar for code quality and test adequacy"
+      ]
+    },
+    {
+      "id": "armstrong-sr",
       "title": "Senior Software Developer",
-      "dateRange": "April 2016 - November 2016",
+      "dateRange": {"from": "2016-04-01", "to": "2016-11-01"},
       "employer": "Armstrong Fluid Technology",
       "languages": [
         "C#",
@@ -41,15 +57,17 @@
       ]
     },
     {
+      "id": "armstrong-int",
       "title": "Intermediate Software Developer",
-      "dateRange": "December 2014 - March 2016",
+      "dateRange": {"from": "2014-12-01", "to": "2016-03-31"},
       "employer": "Armstrong Fluid Technology",
       "languages": [
         "C#",
         "HTML",
         "JavaScript"
       ],
-      "technologies": [
+      "technologies": [],
+      "technologies_hidden_for_size": [
         "ASP.NET MVC",
         "jQuery",
         "LESS"
@@ -60,8 +78,9 @@
       ]
     },
     {
+      "id": "seisware",
       "title": "Software Developer",
-      "dateRange": "December 2011 - October 2014",
+      "dateRange": {"from": "2011-12-01", "to": "2014-10-20"},
       "employer": "SeisWare International Inc.",
       "languages": [
         "C#",
@@ -80,8 +99,9 @@
       ]
     },
     {
+      "id": "circle",
       "title": "Intermediate Software Developer",
-      "dateRange": "May 2010 - December 2011",
+      "dateRange": {"from": "2010-05-01", "to": "2011-12-01"},
       "employer": "Circle Cardiovascular Imaging Inc.",
       "languages": [
         "C++",
@@ -100,8 +120,9 @@
       ]
     },
     {
+      "id": "inunison",
       "title": "Software Developer",
-      "dateRange": "August 2008 - May 2010",
+      "dateRange": {"from": "2008-08-01", "to": "2010-05-01"},
       "employer": "inUnison Technology Services Ltd.",
       "languages": [
         "C#",
@@ -120,8 +141,9 @@
       ]
     },
     {
+      "id": "csi",
       "title": "Software Development and Testing Intern",
-      "dateRange": "May 2006 - August 2007",
+      "dateRange": {"from": "2006-05-01", "to": "2007-08-31"},
       "employer": "Calgary Scientific Inc.",
       "languages": [
         "C++"
@@ -138,8 +160,9 @@
   ],
   "unrelatedExperience": [
     {
+      "id": "university",
       "title": "University Course Lab Designer",
-      "dateRange": "May 2008 - August 2008",
+      "dateRange": {"from": "2008-05-01", "to": "2008-08-31"},
       "employer": "Dr. Vahid Garousi, University of Calgary",
       "responsibilities": [
 		"Planned, prepared, and documented labs for SENG 521 - Software Reliability and Testing",
@@ -150,8 +173,9 @@
       ]
     },
     {
+      "id": "military",
       "title": "Non-Commissioned Member",
-      "dateRange": "July 2004 - March 2007",
+      "dateRange": {"from": "2004-07-01", "to": "2007-03-31"},
       "employer": "Canadian Armed Forces, 33 Field Engineers Squadron",
       "responsibilities": [
 		"Primary role of field engineers is to provide friendly troops with the ability to live, move, and fight while denying those abilities to the enemy",
